@@ -1,3 +1,4 @@
+
 from yelpapi import YelpAPI
 
 import argparse
@@ -14,18 +15,36 @@ load_dotenv()
 
 api_key = os.getenv("api_key", default="OOPS, please set env var called 'SENDGRID_API_KEY'")
 
-print(api_key)
+#print(api_key)
 
-# client_id = os.getenv("client_id", default="OOPS, please set env var called 'SENDER_ADDRESS'")
+city = input("Please input your zip code: ")
+cuisine = input('Please input your cuisine: ')
+with YelpAPI(api_key) as yelp_api:
+    search_results = yelp_api.search_query(location = city, term = cuisine, sort_by='rating', limit = 5, radius=1000)
 
-# argparser = argparse.ArgumentParser(description='Example Yelp queries using yelpapi. '
+#pprint(search_results)
+
+
+#business = search_results['businesses'][0]
+
+for business in search_results['businesses']:
+     print(business['name'], business['location']['display_address'])
+     
+#request_url = "https://api.yelp.com/v3/businesses/matches"
+#response = requests.get(request_url)
+#print(response.status_code)
+#print(response.text)
+
+#client_id = os.getenv("client_id", default="OOPS, please set env var called 'SENDER_ADDRESS'")
+
+#argparser = argparse.ArgumentParser(description='Example Yelp queries using yelpapi. '
 #                                                'Visit https://www.yelp.com/developers/v3/manage_app to get the '
 #                                                'necessary API keys.')
-# argparser.add_argument('api_key', type=str, help='Yelp Fusion API Key')
-# args = argparser.parse_args()
-with YelpAPI(api_key) as yelp_api:
-    search_results = yelp_api.search_query(location="Austin")
-print(search_results)
+#argparser.add_argument('api_key', type=str, help='Yelp Fusion API Key')
+#args = argparser.parse_args()
+#with YelpAPI(api_key) as yelp_api:
+#search_results = yelp_api.search_query(location="Austin")
+#print(search_results)
 '''
 with YelpAPI(args.api_key) as yelp_api:
     """
