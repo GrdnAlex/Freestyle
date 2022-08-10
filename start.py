@@ -29,9 +29,11 @@ with YelpAPI(api_key) as yelp_api:
 import re
 
 for business in search_results['businesses']:
-    print("Name: " + str(business['name']),"\n" "Address: " + str(business['location']['display_address']),"\n" "rating: " + str(business['rating']))
-
-
+    address_line1 = business['location']['display_address'][0]
+    address_line2 = business['location']['display_address'][1]
+    address = address_line1 + ", " + address_line2
+    print("Name: " + str(business['name']),"\n" "Address: " + address + "\n" "rating: " + str(business['rating']))
+    
 
 #request_url = "https://api.yelp.com/v3/businesses/matches"
 #response = requests.get(request_url)
