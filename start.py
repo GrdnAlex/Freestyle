@@ -22,28 +22,14 @@ api_key = os.getenv("api_key", default="OOPS, please set env var called 'SENDGRI
 city = input("Please input your zip code: ")
 cuisine = input('Please input your cuisine: ')
 with YelpAPI(api_key) as yelp_api:
-    search_results = yelp_api.search_query(location = city, term = cuisine, sort_by='rating', limit = 5, radius=1000)
+    search_results = yelp_api.search_query(sort_by='rating', location = city, term = cuisine, limit = 5, radius=1000)
 
 #pprint(search_results)
 
+import re
 
 for business in search_results['businesses']:
-     print("Name: " + str(business['name']), "Address: " + str(business['location']['display_address']), "rating:" + str(business['rating']))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    print("Name: " + str(business['name']),"\n" "Address: " + str(business['location']['display_address']),"\n" "rating: " + str(business['rating']))
 
 
 
